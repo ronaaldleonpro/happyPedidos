@@ -7,6 +7,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import LoginScreen from "./screens/Login.js";
 import HomeScreen from "./screens/Home.js";
 import SettingsScreen from "./screens/Settings.js";
+import RegisterScreen from "./screens/Registro.js";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -58,11 +59,18 @@ export default function App() {
               <LoginScreen {...props} setIsAuthenticated={setIsAuthenticated} />
             )}
           </Stack.Screen>
+
+           <Stack.Screen name="Registro" options={{ headerShown: false }} >
+            {(props) => (
+              <RegisterScreen {...props} setIsAuthenticated={setIsAuthenticated} />
+            )}
+          </Stack.Screen>
+
           <Stack.Screen name="HomeTabs" options={{ headerShown: false }}>
-          {(props) => (
-            <HomeTabs {...props} setIsAuthenticated={setIsAuthenticated} />
-          )}
-        </Stack.Screen>
+            {(props) => (
+              <HomeTabs {...props} setIsAuthenticated={setIsAuthenticated} />
+            )}
+          </Stack.Screen>
         </>
         ) : (
           <Stack.Screen name="HomeTabs" options={{ headerShown: false }}>

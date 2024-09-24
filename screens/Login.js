@@ -8,7 +8,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   ImageBackground,
-  Image
+  Image,
+  Linking 
 } from "react-native";
 
 const USERNAME = "usuario";
@@ -25,6 +26,10 @@ export default function LoginScreen({ navigation, setIsAuthenticated }) {
     } else {
       Alert.alert("Error", "Correo o contraseña incorrectos");
     }
+  };
+
+  const handleRegistrarse = () =>{
+    navigation.navigate("Registro"); // Navega a HomeTabs
   };
   
   const styles = StyleSheet.create({
@@ -52,14 +57,14 @@ export default function LoginScreen({ navigation, setIsAuthenticated }) {
     },
     loginHeader: {
       marginBottom: 20,
-      marginTop: 40,
+      marginTop: 30,
       color: "#000000",
       fontWeight: "bold",
       fontSize: 25,
       textTransform: "uppercase",
     },
     loginInputs: {
-      height: 60,
+      height: 40,
       borderColor: "#EDE7E7",
       borderBottomWidth: 1,
       marginBottom: 20,
@@ -81,6 +86,14 @@ export default function LoginScreen({ navigation, setIsAuthenticated }) {
       fontSize: 20,
       textTransform: "uppercase",
     },
+    registrarseScreenLink:{
+      fontSize: 15,
+      textTransform: "uppercase",
+      color: "#000000",
+      marginTop: 30,
+      borderBottomWidth: 1,
+      borderBottomColor: "#000000"
+    }
   });
 
   return (
@@ -116,6 +129,10 @@ export default function LoginScreen({ navigation, setIsAuthenticated }) {
           style={styles.loginButtonContainer}
         >
           <Text style={styles.loginButton}>Iniciar Sesión</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={handleRegistrarse}>
+            <Text style={styles.registrarseScreenLink}>Registrarse</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
