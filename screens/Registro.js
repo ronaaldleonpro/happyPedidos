@@ -14,10 +14,63 @@ import {
 import DropDownPicker from "react-native-dropdown-picker";
 
 export default function RegisterScreen({ navigation }) {
-  const handleRegister = () => {};
+  const [nombre, setNombre] = useState("");
+  const [correo, setCorreo] = useState("");
+  const [contraseña, setContraseña] = useState("");
+  const [direccion, setDireccion] = useState("");
+  const handleRegister = () => {
+  const metodo_pago = value; // Método de pago seleccionado
+
+    // URL de tu API
+    var APIURL = "http://192.168.1.4/happyPedidosAPI/Usuarios/registerUser.php";
+
+    fetch(APIURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        Nombre: nombre,
+        Correo: correo,
+        Contraseña: contraseña,
+        Telefono: phone,
+        Direccion: direccion,
+        MetodoPago: metodo_pago,
+      }),
+    })
+      .then((response) => {
+        // Verifica si la respuesta fue exitosa
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data); // Imprime la respuesta de la API
+        alert(data.Message);
+        if (data.Message === "Registro exitoso.") {
+          navigation.navigate("Login");
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error); // Muestra el error en consola
+        alert("Ocurrió un error al registrar el usuario.");
+      });
+};
+
 
   const handleLogin = () => {
     navigation.navigate("Login"); // Navega a HomeTabs
+  };
+
+  const [phone, setPhone] = useState("");
+  const handlePhoneNumberChange = (text) => {
+    // Filtra el texto permitiendo solo números
+    const numericText = text.replace(/[^0-9]/g, "");
+    // Si el texto tiene más de 8 caracteres, lo corta
+    if (numericText.length <= 8) {
+      setPhone(numericText);
+    }
   };
 
   const [open, setOpen] = useState(false);
@@ -52,7 +105,7 @@ export default function RegisterScreen({ navigation }) {
       borderTopLeftRadius: 15,
     },
     RegisterHeader: {
-      marginBottom: 20,
+      marginBottom: 10,
       marginTop: 30,
       color: "#000000",
       fontWeight: "bold",
@@ -83,20 +136,20 @@ export default function RegisterScreen({ navigation }) {
       backgroundColor: "#FFFFFF", // Fondo de la lista desplegable
       borderColor: "#EDE7E7",
       width: 315,
-      alignSelf: "center"
+      alignSelf: "center",
     },
     labelStyle: {
       fontWeight: "Normal", // Estilo del texto seleccionado
-      color: "#B4A3A3",
+      color: "#000",
       fontSize: 17,
     },
     itemStyle: {
-      color: "#B4A3A3",// Estilo de cada ítem
+      color: "#B4A3A3", // Estilo de cada ítem
       fontSize: 17,
     },
-    placeholderStyle:{
-        color: "#B4A3A3",
-        fontSize: 17,
+    placeholderStyle: {
+      color: "#B4A3A3",
+      fontSize: 17,
     },
     RegisterButtonContainer: {
       backgroundColor: "#F48C06",
@@ -138,27 +191,22 @@ export default function RegisterScreen({ navigation }) {
       </View>
       <View style={styles.RegisterElements}>
         <Text style={styles.RegisterHeader}>Registro</Text>
-        <TextInput placeholder="Nombre" style={styles.RegisterInputs} />
-        <TextInput
-          placeholder="Correo"
-          secureTextEntry
-          style={styles.RegisterInputs}
-        />
+        <TextInput placeholder="Nombre" style={styles.RegisterInputs} value={nombre}  onChangeText={setNombre}/>
+        <TextInput placeholder="Correo" style={styles.RegisterInputs} value={correo}  onChangeText={setCorreo}/>
         <TextInput
           placeholder="Contraseña"
           secureTextEntry
           style={styles.RegisterInputs}
+          value={contraseña} onChangeText={setContraseña}
         />
         <TextInput
           placeholder="Teléfono"
-          secureTextEntry
           style={styles.RegisterInputs}
+          keyboardType="numeric"
+          value={phone}
+          onChangeText={handlePhoneNumberChange}
         />
-        <TextInput
-          placeholder="Dirección"
-          secureTextEntry
-          style={styles.RegisterInputs}
-        />
+          <TextInput placeholder="Dirección" style={styles.RegisterInputs} value={direccion} onChangeText={setDireccion}/>
         <DropDownPicker
           open={open}
           value={value}
@@ -170,9 +218,9 @@ export default function RegisterScreen({ navigation }) {
           dropDownContainerStyle={styles.dropdownContainer} // Contenedor desplegable
           labelStyle={styles.labelStyle} // Estilo de los ítems
           listItemLabelStyle={styles.itemStyle} // Estilo de cada ítem
-          dropDownDirection="BOTTOM" 
+          dropDownDirection="BOTTOM"
           placeholder="Método de pago"
-          placeholderStyle={styles.placeholderStyle}  // Estilo del texto por defecto
+          placeholderStyle={styles.placeholderStyle} // Estilo del texto por defecto
         />
         <TouchableOpacity
           onPress={handleRegister}

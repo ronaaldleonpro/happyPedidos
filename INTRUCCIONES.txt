@@ -1,0 +1,22 @@
+HAPPYPEDIDOS - PROYECTO DPS - INSTRUCCIONES
+
+
+Descomprimir rar "node_modules.rar" para poder usar todas las depencias y correr expo, SI NO, instalar todo lo siguiente:
+
+1. 	npx create-expo-app@latest happyPedidos --template blank
+2.	npm install expo
+3.	npm install react-native-vector-icons
+4.	npm install @react-navigation/native @react-navigation/bottom-tabs
+5.	npm install @react-navigation/native-stack
+6.	npm install react-native-dropdown-picker
+
+
+
+
+
+En los archivos de Loin.js y Registro.js, en la linea
+var APIURL = "http://TU_IP/happyPedidosAPI/Usuarios/loginUser.php";		->		Colocar IP de computadora, ya que todo es local
+
+
+
+Copiar y pegar carpeta "happyPedidosAPI" en carpeta "htdocs" de XAMPP
