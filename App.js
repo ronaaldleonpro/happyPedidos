@@ -52,32 +52,32 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {!isAuthenticated ? (
-          <>
-          <Stack.Screen name="Login" options={{ headerShown: false }}>
-            {(props) => (
-              <LoginScreen {...props} setIsAuthenticated={setIsAuthenticated} />
-            )}
-          </Stack.Screen>
-
-           <Stack.Screen name="Registro" options={{ headerShown: false }} >
-            {(props) => (
-              <RegisterScreen {...props} setIsAuthenticated={setIsAuthenticated} />
-            )}
-          </Stack.Screen>
-
+        {isAuthenticated ? (
           <Stack.Screen name="HomeTabs" options={{ headerShown: false }}>
             {(props) => (
               <HomeTabs {...props} setIsAuthenticated={setIsAuthenticated} />
             )}
           </Stack.Screen>
-        </>
         ) : (
-          <Stack.Screen name="HomeTabs" options={{ headerShown: false }}>
-            {(props) => (
-              <HomeTabs {...props} setIsAuthenticated={setIsAuthenticated} />
-            )}
-          </Stack.Screen>
+          <>
+            <Stack.Screen name="Login" options={{ headerShown: false }}>
+              {(props) => (
+                <LoginScreen
+                  {...props}
+                  setIsAuthenticated={setIsAuthenticated}
+                />
+              )}
+            </Stack.Screen>
+
+            <Stack.Screen name="Registro" options={{ headerShown: false }}>
+              {(props) => (
+                <RegisterScreen
+                  {...props}
+                  setIsAuthenticated={setIsAuthenticated}
+                />
+              )}
+            </Stack.Screen>
+          </>
         )}
       </Stack.Navigator>
     </NavigationContainer>

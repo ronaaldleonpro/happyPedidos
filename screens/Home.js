@@ -5,10 +5,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 export default function HomeScreen({ navigation, setIsAuthenticated }) {
   const handleLogout = () => {
     setIsAuthenticated(false); // Actualiza el estado de autenticación
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "Login" }],
-    });
+    navigation.replace("Login");
   };
 
   return (

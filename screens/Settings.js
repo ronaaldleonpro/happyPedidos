@@ -5,10 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 export default function SettingsScreen({ navigation, setIsAuthenticated }) {
   const handleLogout = () => {
     setIsAuthenticated(false); 
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'Login' }],
-    });
+    navigation.replace("Login");
   };
 
   return (
