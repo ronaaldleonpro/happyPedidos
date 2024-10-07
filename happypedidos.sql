@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-10-2024 a las 03:53:04
+-- Tiempo de generación: 07-10-2024 a las 09:30:04
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -40,8 +40,14 @@ CREATE TABLE `dishes` (
 --
 
 INSERT INTO `dishes` (`id`, `name`, `price`, `description`, `image`) VALUES
-(1, 'Pizza Rockstar', 12.50, 'Una explosión de sabores atrevidos, con una base crujiente, salsa de tomate ahumada, queso mozzarella derretido y una combinación única de pepperoni picante, champiñones caramelizados y un toque final de albahaca fresca. ¡Una verdadera estrella en cada bocado!', 'happyPedidos/imagenes/PizzaRocstart.png'),
-(2, 'Taco 3D', 7.50, 'Con tres tipos de carne: suculenta res, jugoso pollo y tierno cerdo, todo envuelto en una tortilla perfectamente dorada. Un taco que eleva lo tradicional con una experiencia tridimensional de texturas y sazones. ¡Ideal para los amantes de la carne!', 'happyPedidos/imagenes/Taco3D.png');
+(1, 'Pizza Rockstar', 12.50, 'Una explosión de sabores atrevidos, con una base crujiente, salsa de tomate ahumada, queso mozzarella derretido y una combinación de comida única de pepperoni picante, champiñones caramelizados y un toque final de albahaca fresca. ¡Una comida verdadera estrella en cada bocado!', '../imagenes/PizzaRocstar.png'),
+(2, 'Taco 3D', 7.50, 'Con tres tipos de carne: suculenta res, jugoso pollo y tierno cerdo, todo envuelto en una tortilla perfectamente dorada. Un taco que eleva lo tradicional con una experiencia tridimensional de texturas y sazones. ¡La comida ideal para los amantes de la carne!', '../imagenes/Taco3D.png'),
+(3, 'Baileys', 8.50, 'Esta bebida es perfecta para acompañar postres como helados, pasteles o incluso para añadir un toque especial a tu café. También se puede disfrutar sola, servida con hielo', '../imagenes/Baileys.png'),
+(4, 'CocaCola', 2.50, 'La bebida ideal para disfrutar en cualquier ocasión, es una opción versátil que realza el sabor de tus platillos y proporciona un toque de frescura a cada platillo.', '../imagenes/CocaCola.png'),
+(5, 'M&M', 1.50, 'Es perfecto para disfrutar solos o como acompañamiento en postres y otras creaciones culinarias. Su dulce tamaño y colores los hacen ideales para decorar pasteles, galletas y helados, añadiendo un toque divertido y delicioso a cualquier plato.', '../imagenes/M&M.png'),
+(6, 'Oreo', 1.00, 'Combina dos crujientes galletas de chocolate negro con un cremoso relleno de vainilla. Perfectas para disfrutar solas, mojadas en leche, o como ingrediente estrella en tus postres favoritos. Su dulce sabor que también añaden un toque de diversión y nostalgia a cada bocado.', '../imagenes/Oreo.png'),
+(7, 'Sandwich', 3.50, 'Disfruta de la deliciosa versatilidad de nuestros sándwiches, el snack perfecto para cualquier momento del día. Con una variedad de ingredientes frescos y sabrosos, cada bocado ofrece una explosión de sabores.', '../imagenes/Sandwich.png'),
+(8, 'QuesoDedo', 4.99, 'Sumérgete en la deliciosa experiencia de nuestros dedos de queso, el snack perfecto para cualquier ocasión. Estos crujientes palitos están rellenos de queso fundido, ofreciendo un contraste irresistible entre su exterior dorado y su interior cremoso.', '../imagenes/QuesoDedo.png');
 
 -- --------------------------------------------------------
 
@@ -150,7 +156,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `dishes`
 --
 ALTER TABLE `dishes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `orders`
