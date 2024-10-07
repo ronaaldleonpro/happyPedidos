@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Icon from "react-native-vector-icons/FontAwesome";
+import Icon from "react-native-vector-icons/FontAwesome.js";
 
 import LoginScreen from "./screens/Login.js";
 import HomeScreen from "./screens/Home.js";
@@ -19,20 +19,42 @@ function HomeTabs({ setIsAuthenticated }) {
         tabBarIcon: ({ color, size }) => {
           let iconName;
           if (route.name === "Home") {
-            iconName = "home";
-          } else if (route.name === "Settings") {
-            iconName = "cogs";
+            iconName = "home";  
+          } 
+          else if (route.name === "Favorite") {
+            iconName = "heart";
           }
-          return <Icon name={iconName} size={size} color={color} />;
+          else if (route.name === "Shop") {
+            iconName = "clock-o";
+          }
+          else if (route.name === "Settings") {
+            iconName = "user";
+          }
+          return <Icon name={iconName} size={24} color={color} />;
         },
-        tabBarActiveTintColor: "blue", // Color para la pestaña activa
+        tabBarLabel: () => null,
+        tabBarActiveTintColor: "#6A040F", // Color para la pestaña activa
         tabBarInactiveTintColor: "gray", // Color para la pestaña inactiva
         tabBarStyle: {
-          paddingBottom: 5, // Espaciado inferior
+          padding: 0, // Espaciado inferior
+          borderTopWidth: 0,
+          elevation: 0, // Elimina sombra en Android
+          shadowOpacity: 0, // Elimina sombra en iOS
         },
+
       })}
     >
-      <Tab.Screen name="Home">
+      <Tab.Screen name="Home" options={{ headerShown: false }}>
+        {(props) => (
+          <HomeScreen {...props} setIsAuthenticated={setIsAuthenticated} />
+        )}
+      </Tab.Screen>
+      <Tab.Screen name="Favorite">
+        {(props) => (
+          <HomeScreen {...props} setIsAuthenticated={setIsAuthenticated} />
+        )}
+      </Tab.Screen>
+      <Tab.Screen name="Shop">
         {(props) => (
           <HomeScreen {...props} setIsAuthenticated={setIsAuthenticated} />
         )}
