@@ -14,7 +14,10 @@ Descomprimir rar "node_modules.rar" para poder usar todas las depencias y correr
 
 
 
-En los archivos de Loin.js y Registro.js, en la linea
+En los archivos:
+Loin.js
+Registro.js
+Home.js, en la linea
 var APIURL = "http://TU_IP/happyPedidosAPI/Usuarios/loginUser.php";		->		Colocar IP de computadora, ya que todo es local
 
 
