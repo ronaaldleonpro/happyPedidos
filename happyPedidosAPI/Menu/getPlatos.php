@@ -17,7 +17,7 @@ if ($conn->connect_error) {
 }
 
 // Consulta SQL para obtener los platos
-$sql = "SELECT id, name, price, image FROM dishes";
+$sql = "SELECT id, name, price, description, image FROM dishes";
 $result = $conn->query($sql);
 
 // Arreglo para almacenar los resultados

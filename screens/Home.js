@@ -6,80 +6,173 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-// Mapeo de nombres de imágenes a sus imports
 const images = {
   "PizzaRocstar.png": require("../imagenes/PizzaRocstar.png"),
   "Taco3D.png": require("../imagenes/Taco3D.png"),
-  "HamburgerRIP.png": require("../imagenes/HamburgerRIP.png"),
-  "FreshFish.png": require("../imagenes/FreshFish.png"),
-  // Añade más imágenes según sea necesario
+  "Baileys.png": require("../imagenes/Baileys.png"),
+  "CocaCola.png": require("../imagenes/CocaCola.png"),
+  "M&M.png": require("../imagenes/M&M.png"),
+  "Oreo.png": require("../imagenes/Oreo.png"),
+  "Sandwich.png": require("../imagenes/Sandwich.png"),
+  "QuesoDedo.png": require("../imagenes/QuesoDedo.png"),
 };
 
 export default function MenuScreen({ navigation }) {
   const [dishes, setDishes] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  const [filteredDishes, setFilteredDishes] = useState([]);
+  const [activeFilter, setActiveFilter] = useState("todo"); // Estado para el filtro activo
 
   useEffect(() => {
-    // Llama al archivo PHP para obtener los platos usando fetch
-    fetch("http://192.168.1.4/happyPedidosAPI/Menu/getPlatos.php") // Cambia por la URL de tu servidor
+    fetch("http://192.168.1.4/happyPedidosAPI/Menu/getPlatos.php")
       .then((response) => response.json())
       .then((data) => {
         setDishes(data);
+        setFilteredDishes(data);
       })
       .catch((error) => {
         console.log("Error al obtener los datos:", error);
       });
   }, []);
 
-  const handleDishPress = (dish) => {
-    // Navega a la pantalla de detalles del platillo (APLICAR MEJOR LOGICA CON SELECT CASE), este es solo un ejemplo
-    if (dish.name == "Pizza Rockstar") {
-      navigation.navigate("Shop");
-    } else {
-      navigation.navigate("Settings");
-    }
-  };
-  const handleHomeScreen = () =>{
-    navigation.navigate("Home");
-  };
+  useEffect(() => {
+    const filtered = dishes.filter((dish) =>
+      dish.name.toLowerCase().includes(searchText.toLowerCase())
+    );
+    setFilteredDishes(filtered);
+  }, [searchText, dishes]);
 
+  const handleFilterOption = (option) => {
+    setActiveFilter(option); // Actualiza el filtro activo
+    const filtered =
+      option === "todo"
+        ? dishes
+        : dishes.filter((dish) =>
+            (dish.description || "")
+              .toLowerCase()
+              .includes(option.toLowerCase())
+          );
+    //console.log("Filtrado para opción:", option, filtered);
+    setFilteredDishes(filtered);
+  };
 
   return (
     <View style={styles.container}>
-      {/* Logo y barra de búsqueda */}
       <View style={styles.header}>
-      <TouchableOpacity onPress={handleHomeScreen}>
-        <Image
-          source={require("../imagenes/Logo.png")}
-          style={styles.HomeImageHeader}
-          resizeMode="contain"
-        />
+        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <Image
+            source={require("../imagenes/Logo.png")}
+            style={styles.HomeImageHeader}
+            resizeMode="contain"
+          />
         </TouchableOpacity>
         <Icon name={"shopping-cart"} size={24} color={"#6A040F"} />
       </View>
+
       <View style={styles.searchBarContainer}>
-      <View style={styles.searchBar}>
-        <Icon name="search" size={24} color="#FFF" />
-        <Text style={styles.searchText}>Buscar...</Text>
+        <View style={styles.searchBar}>
+          <Icon name="search" size={24} color="#FFF" />
+          <TextInput
+            style={styles.searchTextInput}
+            placeholder="Buscar"
+            placeholderTextColor="#FFF"
+            value={searchText}
+            onChangeText={setSearchText}
+          />
+        </View>
       </View>
+
+      <View style={styles.miniMenuContainer}>
+        <TouchableOpacity
+          style={styles.miniMenuOptionTouch}
+          onPress={() => handleFilterOption("todo")}
+        >
+          <Text
+            style={[
+              styles.miniMenuOption,
+              activeFilter === "todo" && styles.activeOption,
+              activeFilter !== "todo" && styles.inactiveOption,
+            ]}
+          >
+            Todo
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.miniMenuOptionTouch}
+          onPress={() => handleFilterOption("comida")}
+        >
+          <Text
+            style={[
+              styles.miniMenuOption,
+              activeFilter === "comida" && styles.activeOption,
+              activeFilter !== "comida" && styles.inactiveOption,
+            ]}
+          >
+            Comida
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.miniMenuOptionTouch}
+          onPress={() => handleFilterOption("bebida")}
+        >
+          <Text
+            style={[
+              styles.miniMenuOption,
+              activeFilter === "bebida" && styles.activeOption,
+              activeFilter !== "bebida" && styles.inactiveOption,
+            ]}
+          >
+            Bebida
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.miniMenuOptionTouch}
+          onPress={() => handleFilterOption("snack")}
+        >
+          <Text
+            style={[
+              styles.miniMenuOption,
+              activeFilter === "snack" && styles.activeOption,
+              activeFilter !== "snack" && styles.inactiveOption,
+            ]}
+          >
+            Snacks
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.miniMenuOptionTouch}
+          onPress={() => handleFilterOption("dulce")}
+        >
+          <Text
+            style={[
+              styles.miniMenuOption,
+              activeFilter === "dulce" && styles.activeOption,
+              activeFilter !== "dulce" && styles.inactiveOption,
+            ]}
+          >
+            Dulces
+          </Text>
+        </TouchableOpacity>
       </View>
-      {/* Lista de platos */}
+
       <FlatList
-        data={dishes}
+        data={filteredDishes}
         keyExtractor={(item) => item.id.toString()}
         numColumns={2}
         style={styles.menuFlatList}
         renderItem={({ item }) => (
           <TouchableOpacity
-            onPress={() => handleDishPress(item)}
+            onPress={() => navigation.navigate("Shop", { dish: item })}
             style={styles.productCard}
           >
             <Image
               style={styles.productImage}
               resizeMode="cover"
-              source={images[item.image.split("/").pop()]} // Usa el nombre de archivo para obtener la imagen
+              source={images[item.image.split("/").pop()]}
             />
             <Text style={styles.productName}>{item.name}</Text>
             <Text style={styles.productPrice}>${item.price}</Text>
@@ -108,10 +201,10 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
   },
-  searchBarContainer:{
+  searchBarContainer: {
     alignItems: "center",
     marginTop: 15,
-    marginBottom: 15
+    marginBottom: 15,
   },
   searchBar: {
     flexDirection: "row",
@@ -120,28 +213,49 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 15,
     height: 40,
-    width: "92%"
+    width: "92%",
   },
-  searchText: {
+  searchTextInput: {
     marginLeft: 10,
     color: "#FFF",
+    flex: 1,
+  },
+  miniMenuContainer: {
+    flexDirection: "row",
+    height: 50,
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  miniMenuOptionTouch: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%"
+  },
+  miniMenuOption: {
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  activeOption: {
+    color: "#6A040F", // Color activo
+    textDecorationLine: "underline", // Estilo subrayado
+  },
+  inactiveOption: {
+    color: "gray", // Color inactivo
   },
   menuFlatList: {
     height: "100%",
   },
   productCard: {
-    flex: 2,
-    marginTop: 20,
-    marginLeft: 15,
-    marginRight: 15,
-    marginBottom: 10,
+    flex: 1,
+    margin: 10,
     backgroundColor: "#FFF",
     alignItems: "center",
     borderColor: "red",
     borderWidth: 0,
     paddingBottom: 10,
-    width: "100%",
-    height: "100%",
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
   },
