@@ -70,7 +70,10 @@ export default function MenuScreen({ navigation }) {
             resizeMode="contain"
           />
         </TouchableOpacity>
-        <Icon name={"shopping-cart"} size={24} color={"#6A040F"} />
+        <TouchableOpacity onPress={() => navigation.navigate("Shop")}>
+          <Icon name={"shopping-cart"} 
+          size={24} color={"#6A040F"} />
+        </TouchableOpacity>
       </View>
 
       <View style={styles.searchBarContainer}>
