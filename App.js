@@ -8,6 +8,8 @@ import LoginScreen from "./screens/Login.js";
 import HomeScreen from "./screens/Home.js";
 import SettingsScreen from "./screens/Settings.js";
 import RegisterScreen from "./screens/Registro.js";
+import ShopScreen from "./screens/Shop.js";
+import PaymentScreen from "./screens/Payment.js";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -19,8 +21,8 @@ function HomeTabs({ setIsAuthenticated }) {
         tabBarIcon: ({ color, size }) => {
           let iconName;
           if (route.name === "Home") {
-            iconName = "home";  
-          } 
+            iconName = "home";
+          }
           else if (route.name === "Favorite") {
             iconName = "heart";
           }
@@ -41,7 +43,6 @@ function HomeTabs({ setIsAuthenticated }) {
           elevation: 0, // Elimina sombra en Android
           shadowOpacity: 0, // Elimina sombra en iOS
         },
-
       })}
     >
       <Tab.Screen name="Home" options={{ headerShown: false }}>
@@ -56,7 +57,7 @@ function HomeTabs({ setIsAuthenticated }) {
       </Tab.Screen>
       <Tab.Screen name="Shop">
         {(props) => (
-          <HomeScreen {...props} setIsAuthenticated={setIsAuthenticated} />
+          <ShopScreen {...props} setIsAuthenticated={setIsAuthenticated} />
         )}
       </Tab.Screen>
       <Tab.Screen name="Settings">
@@ -75,11 +76,23 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         {isAuthenticated ? (
-          <Stack.Screen name="HomeTabs" options={{ headerShown: false }}>
-            {(props) => (
-              <HomeTabs {...props} setIsAuthenticated={setIsAuthenticated} />
-            )}
-          </Stack.Screen>
+          <>
+            <Stack.Screen
+              name="HomeTabs"
+              options={{ headerShown: false }}
+            >
+              {(props) => (
+                <HomeTabs {...props} setIsAuthenticated={setIsAuthenticated} />
+              )}
+            </Stack.Screen>
+
+            {/* Aquí agregamos la pantalla de Payment */}
+            <Stack.Screen
+              name="Payment"
+              component={PaymentScreen}
+              options={{ title: "Método de Pago" }}
+            />
+          </>
         ) : (
           <>
             <Stack.Screen name="Login" options={{ headerShown: false }}>

@@ -8,7 +8,7 @@ const ShopScreen = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
-    fetch('http://192.168.74.188/happyPedidosAPI/Menu/getShop.php')
+    fetch('http://192.168.0.5/happyPedidosAPI/Menu/getShop.php')
       .then(response => response.json())
       .then(data => setOrderSummary(data)) // Cambié "setShop" a "setOrderSummary"
       .catch(error => {
@@ -27,6 +27,7 @@ const ShopScreen = ({ navigation }) => {
       setModalVisible(true);
     } else {
       navigation.navigate('Payment', {
+        paymentMethod: selectedPaymentMethod,
         orderId: orderSummary.ordenId,
       });
     }

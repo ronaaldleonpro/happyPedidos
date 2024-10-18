@@ -28,7 +28,7 @@ export default function MenuScreen({ navigation }) {
   const [activeFilter, setActiveFilter] = useState("todo"); // Estado para el filtro activo
 
   useEffect(() => {
-    fetch("http://192.168.1.4/happyPedidosAPI/Menu/getPlatos.php")
+    fetch("http://192.168.74.188/happyPedidosAPI/Menu/getPlatos.php")
       .then((response) => response.json())
       .then((data) => {
         setDishes(data);

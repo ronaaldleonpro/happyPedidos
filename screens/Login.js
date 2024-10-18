@@ -22,7 +22,7 @@ export default function LoginScreen({ navigation, setIsAuthenticated }) {
       return;
     }
 
-    var APIURL = "http://192.168.1.4/happyPedidosAPI/Usuarios/loginUser.php"; // Asegúrate de que esta URL sea correcta
+    var APIURL = "http://192.168.0.37/happyPedidosAPI/Usuarios/loginUser.php"; // Asegúrate de que esta URL sea correcta
 
     fetch(APIURL, {
       method: 'POST',

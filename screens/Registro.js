@@ -22,7 +22,7 @@ export default function RegisterScreen({ navigation }) {
   const metodo_pago = value; // Método de pago seleccionado
 
     // URL de tu API
-    var APIURL = "http://192.168.1.4/happyPedidosAPI/Usuarios/registerUser.php";
+    var APIURL = "http://192.168.74.188/happyPedidosAPI/Usuarios/registerUser.php";
 
     fetch(APIURL, {
       method: "POST",
