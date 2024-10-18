@@ -56,7 +56,6 @@ export default function MenuScreen({ navigation }) {
               .toLowerCase()
               .includes(option.toLowerCase())
           );
-    //console.log("Filtrado para opción:", option, filtered);
     setFilteredDishes(filtered);
   };
 
@@ -169,7 +168,7 @@ export default function MenuScreen({ navigation }) {
         style={styles.menuFlatList}
         renderItem={({ item }) => (
           <TouchableOpacity
-            onPress={() => navigation.navigate("Shop", { dish: item })}
+            onPress={() => navigation.navigate("Producto", { dish: item })} //  lleva a la pantalla Producto
             style={styles.productCard}
           >
             <Image
@@ -234,7 +233,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    height: "100%"
+    height: "100%",
   },
   miniMenuOption: {
     textAlign: "center",
