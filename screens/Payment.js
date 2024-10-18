@@ -7,6 +7,8 @@ import {
   Modal,
   StyleSheet,
   Image,
+  Alert,
+  Navigat
 } from "react-native";
 
 export default function PaymentScreen({ navigation }) {
@@ -49,15 +51,10 @@ export default function PaymentScreen({ navigation }) {
     }
   };
 
-  const handlePayment = () => {
-    if (cardName && cardNumber && expiryDate && cvv) {
-      setModalVisible(true);
-    } else {
-      setErrorModalVisible(true);
-    }
-  };
+const handlePayment = () => {
+  if (cardName && cardNumber && expiryDate && cvv) {
+    setModalVisible(true);
 
-//
     var APIURL = "http://192.168.74.188/happyPedidosAPI/Menu/update.php";
 
     fetch(APIURL, {
@@ -66,7 +63,7 @@ export default function PaymentScreen({ navigation }) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        orderId: 1,
+        orderId: 22,
       }),
     })
       .then(response => {
@@ -78,17 +75,21 @@ export default function PaymentScreen({ navigation }) {
       .then(data => {
         console.log('Respuesta del servidor:', data);
 
-        if (data.Message === "Inicio de sesión exitoso") {
-          setIsAuthenticated(true);
-          navigation.navigate("HomeTabs");
+        if (data.Message === "Actualizacion exitosa") {
+          navigation.navigate("Home"); //
         } else {
-          alert(data.Message);
         }
       })
       .catch(error => {
         console.error('Error en la solicitud:', error);
-        alert("Ocurrió un error al intentar iniciar sesión");
+        Alert.alert('Error', 'Ocurrió un error al procesar el pago');
       });
+
+  } else {
+    setErrorModalVisible(true);
+  }
+};
+
 
   const clearForm = () => {
     setCardName("");
