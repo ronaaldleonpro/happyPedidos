@@ -4,11 +4,14 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/FontAwesome.js";
 
+// Importación de pantallas
 import LoginScreen from "./screens/Login.js";
 import HomeScreen from "./screens/Home.js";
 import SettingsScreen from "./screens/Settings.js";
 import RegisterScreen from "./screens/Registro.js";
 import ShopScreen from "./screens/Shop.js";
+import ProductoScreen from "./screens/Producto.js"; // Nueva pantalla Producto
+import HistorialCompraScreen from "./screens/HistorialCompra.js"; // Nueva pantalla HistorialCompra
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -42,7 +45,6 @@ function HomeTabs({ setIsAuthenticated }) {
           elevation: 0, // Elimina sombra en Android
           shadowOpacity: 0, // Elimina sombra en iOS
         },
-
       })}
     >
       <Tab.Screen name="Home" options={{ headerShown: false }}>
@@ -104,6 +106,25 @@ export default function App() {
             <Stack.Screen name="Shop" options={{ headerShown: false }}>
               {(props) => (
                 <ShopScreen
+                  {...props}
+                  setIsAuthenticated={setIsAuthenticated}
+                />
+              )}
+            </Stack.Screen>
+
+            {/* Añadir las nuevas pantallas Producto e HistorialCompra */}
+            <Stack.Screen name="Producto" options={{ headerShown: false }}>
+              {(props) => (
+                <ProductoScreen
+                  {...props}
+                  setIsAuthenticated={setIsAuthenticated}
+                />
+              )}
+            </Stack.Screen>
+
+            <Stack.Screen name="HistorialCompra" options={{ headerShown: false }}>
+              {(props) => (
+                <HistorialCompraScreen
                   {...props}
                   setIsAuthenticated={setIsAuthenticated}
                 />
