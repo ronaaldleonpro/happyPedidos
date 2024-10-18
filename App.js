@@ -8,6 +8,7 @@ import LoginScreen from "./screens/Login.js";
 import HomeScreen from "./screens/Home.js";
 import SettingsScreen from "./screens/Settings.js";
 import RegisterScreen from "./screens/Registro.js";
+import ShopScreen from "./screens/Shop.js";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -56,7 +57,7 @@ function HomeTabs({ setIsAuthenticated }) {
       </Tab.Screen>
       <Tab.Screen name="Shop">
         {(props) => (
-          <HomeScreen {...props} setIsAuthenticated={setIsAuthenticated} />
+          <ShopScreen {...props} setIsAuthenticated={setIsAuthenticated} />
         )}
       </Tab.Screen>
       <Tab.Screen name="Settings">
@@ -94,6 +95,15 @@ export default function App() {
             <Stack.Screen name="Registro" options={{ headerShown: false }}>
               {(props) => (
                 <RegisterScreen
+                  {...props}
+                  setIsAuthenticated={setIsAuthenticated}
+                />
+              )}
+            </Stack.Screen>
+
+            <Stack.Screen name="Shop" options={{ headerShown: false }}>
+              {(props) => (
+                <ShopScreen
                   {...props}
                   setIsAuthenticated={setIsAuthenticated}
                 />
